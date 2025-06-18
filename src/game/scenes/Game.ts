@@ -27,6 +27,16 @@ export class Game extends Scene
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
         }).setOrigin(0.5).setDepth(100);
+
+        const nextButton = this.add.text(400, 400, 'Next Stage', { 
+            fontSize: '24px', 
+            backgroundColor: '#000',
+            padding: { x: 10, y: 5 }
+        })
+        .setInteractive()
+        .on('pointerdown', () => {
+            this.scene.start('NextStage'); // Switch to next stage
+        });
         
         EventBus.emit('current-scene-ready', this);
 
