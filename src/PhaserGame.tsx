@@ -34,11 +34,8 @@ export const PhaserGame = ({ currentActiveScene, ref }: IProps) =>
 
         return () =>
         {
-            if (game.current)
-            {
-                game.current.destroy(true);
-                game.current = null;
-            }
+            game.current?.destroy(true);
+            game.current = null;
         }
     }, []);
 
