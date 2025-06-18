@@ -11,7 +11,7 @@ export interface IRefPhaserGame
 interface IProps
 {
     currentActiveScene?: (scene_instance: Phaser.Scene) => void
-    ref?: React.Ref<IRefPhaserGame>;
+    ref: React.Ref<IRefPhaserGame>;
 }
 
 export const PhaserGame = ({ currentActiveScene, ref }: IProps) =>
@@ -25,10 +25,7 @@ export const PhaserGame = ({ currentActiveScene, ref }: IProps) =>
 
             game.current = StartGame("game-container");
 
-            if (typeof ref === 'function')
-            {
-                ref({ game: game.current, scene: null });
-            } else if (ref)
+            if (ref && typeof ref !== 'function')
             {
                 ref.current = { game: game.current, scene: null };
             }
@@ -40,10 +37,7 @@ export const PhaserGame = ({ currentActiveScene, ref }: IProps) =>
             if (game.current)
             {
                 game.current.destroy(true);
-                if (game.current !== null)
-                {
-                    game.current = null;
-                }
+                game.current = null;
             }
         }
     }, []);
