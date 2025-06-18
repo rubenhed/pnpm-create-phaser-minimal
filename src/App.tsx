@@ -1,5 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { IRefPhaserGame, PhaserGame } from './PhaserGame';
+import { Game } from './game/scenes/Game';
+import { EventBus } from './game/EventBus';
 
 function App()
 {
@@ -11,7 +13,7 @@ function App()
 
         if (phaserRef.current)
         {
-            const scene = phaserRef.current.scene;
+            const scene = phaserRef.current.scene as Game;
 
             if (scene)
             {
@@ -21,10 +23,22 @@ function App()
     
                 //  `add.sprite` is a Phaser GameObjectFactory method and it returns a Sprite Game Object instance
                 scene.add.sprite(x, y, 'star');
-    
+                scene.highScore++;
             }
         }
     }
+
+    useEffect(() => {
+        // Listen for the final highscore
+        EventBus.addListener('scene-shutdown', (scene: Game) => {
+            console.log('Final highscore:', scene.highScore);
+            // Do something with the final score, like send it to your server
+        });
+
+        return () => {
+            EventBus.removeListener('scene-shutdown');
+        };
+    }, []);
 
     return (
         <div id="app">
