@@ -12,7 +12,7 @@ const config: Types.Core.GameConfig = {
     backgroundColor: '#028af8',
     scene: [
         MainGame,
-        NextStage 
+        NextStage
     ]
 };
 

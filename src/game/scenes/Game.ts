@@ -40,13 +40,10 @@ export class Game extends Scene
         .setInteractive()
         .on('pointerdown', () => {
             this.scene.start('NextStage'); // Switch to next stage
+            EventBus.emit('scene-shutdown', this);
         });
         
         EventBus.emit('current-scene-ready', this);
-
-        this.events.once('shutdown', () => {
-            EventBus.emit('scene-shutdown', this);
-        });
     }
 
     update ()

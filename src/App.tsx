@@ -40,16 +40,22 @@ function App()
         };
     }, []);
 
+    const onCurrentActiveScene = (scene_instance: Phaser.Scene) => {
+        // Now we can cast it to our Game type
+        // const gameScene = scene_instance as Game;
+        if (scene_instance instanceof Game) scene_instance.highScore = 50;
+    };
+
     return (
         <div id="app">
-            <PhaserGame ref={phaserRef} />
+            <PhaserGame ref={phaserRef} currentActiveScene={onCurrentActiveScene} />
             <div>
                 <div>
                     <button className="button" onClick={addSprite}>Add New Sprite</button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default App
